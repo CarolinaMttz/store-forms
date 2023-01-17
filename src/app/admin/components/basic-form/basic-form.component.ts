@@ -37,16 +37,18 @@ export class BasicFormComponent implements OnInit {
   ngOnInit(): void {
     //valueChanges es un Observable muestra los cambios que se estan dando en esos momentos
     //escuchar  un solo campo
+    /*
     this.nameField.valueChanges
     .subscribe( value => {
       console.log("nameField: ",value);
     });
+    */
 
     //FormBuilder tambien tiene la ventaja de escuchar los cambios de todos los campos
-    this.form.valueChanges
-    .subscribe( value => {
-      console.log("form: ",value);
-    });
+    // this.form.valueChanges
+    // .subscribe( value => {
+    //   console.log("form: ",value);
+    // });
   }
 
   getNameValue(){
@@ -54,7 +56,11 @@ export class BasicFormComponent implements OnInit {
   }
 
   get nameField(){
-    return this.form.get('name');
+    return this.form.get('fullName.name');
+  }
+
+  get lastNameField(){
+    return this.form.get('fullName.lastName');
   }
 
   //el nombre de la función get no importa, pero para que sea más facil le agregamos el nombre del elemrnto
@@ -131,7 +137,10 @@ export class BasicFormComponent implements OnInit {
   private buidForm(){
     /* Ejemplo de uso de FormBuilder */
     this.form = this.formBuilder.group({
-      name:        ['',[ Validators.required, Validators.maxLength(10), Validators.pattern(/^[a-zA-z ]+$/) ]],
+      fullName: this.formBuilder.group({
+        name: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^[a-zA-Z ]+$/)]],
+        lastName: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^[a-zA-Z ]+$/)]]
+      }),
       email:       ['', [ Validators.required, Validators.email ]],
       phone:       ['', Validators.required],
       color:       ['#000000'],

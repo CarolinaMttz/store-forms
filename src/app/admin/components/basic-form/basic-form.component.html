@@ -1,28 +1,52 @@
 <form [formGroup]="form" (ngSubmit)="save()">
 
-  <!--- *name* -->
-  <p>
-    Name: {{ nameField.valid }}
-    <input
-        [class.is-valid]="isNameFieldValid"
-        [class.is-invalid]="isNameFieldInvalid"
-        type="text"
-        formControlName="name"/>
-    <!--<code><pre>{{nameField | json }}</pre></code>-->
-    <button [disabled]="nameField.invalid" (click)="getNameValue()">getValue</button>
-  </p>
-  <div class="messages" [class.active]="isNameFieldInvalid">
+  <!--- *fullName* -->
+  <div formGroupName="fullName">
+    <!--- *name --->
     <p>
-      <strong *ngIf="nameField.hasError('required')">Este campo es requerido.</strong>
+      Name: {{ nameField.valid }}
+      <input
+          [class.is-valid]="isNameFieldValid"
+          [class.is-invalid]="isNameFieldInvalid"
+          type="text"
+          formControlName="name"/>
+      <!--<code><pre>{{nameField | json }}</pre></code>-->
+      <button [disabled]="nameField.invalid" (click)="getNameValue()">getValue</button>
     </p>
+    <div class="messages" [class.active]="isNameFieldInvalid">
+      <p>
+        <strong *ngIf="nameField.hasError('required')">Este campo es requerido.</strong>
+      </p>
+      <p>
+        <strong *ngIf="nameField.hasError('maxlength')">Máximo 10 carácteres</strong>
+      </p>
+      <p>
+        <strong *ngIf="nameField.hasError('pattern')">Ingrese un nombre válido</strong>
+      </p>
+    </div>
+    <!--- #name* --->
+    <!--- *lastName* --->
     <p>
-      <strong *ngIf="nameField.hasError('maxlength')">Máximo 10 carácteres</strong>
+      Apellido: {{ lastNameField.valid }}
+      <input
+          type="text"
+          formControlName="lastName"/>
     </p>
-    <p>
-      <strong *ngIf="nameField.hasError('pattern')">Ingrese un nombre válido</strong>
-    </p>
+    <div class="messages" [class.active]="lastNameField.invalid">
+      <p>
+        <strong *ngIf="lastNameField.hasError('required')">Este campo es requerido.</strong>
+      </p>
+      <p>
+        <strong *ngIf="lastNameField.hasError('maxlength')">Máximo 10 carácteres</strong>
+      </p>
+      <p>
+        <strong *ngIf="lastNameField.hasError('pattern')">Ingrese un apellido válido</strong>
+      </p>
+    </div>
+    <!--- #lastName* --->
+
   </div>
-  <!--- #*name* -->
+  <!--- #*fullName* -->
 
   <!--- *email* -->
   <div>
