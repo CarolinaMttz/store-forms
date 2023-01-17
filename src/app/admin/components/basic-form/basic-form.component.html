@@ -13,10 +13,13 @@
   </p>
   <div class="messages" [class.active]="isNameFieldInvalid">
     <p>
-      <strong *ngIf="nameField.touched && nameField.hasError('required')">Este campo es requerido.</strong>
+      <strong *ngIf="nameField.hasError('required')">Este campo es requerido.</strong>
     </p>
     <p>
-      <strong *ngIf="nameField.touched && nameField.hasError('maxlength')">Máximo 10 carácteres</strong>
+      <strong *ngIf="nameField.hasError('maxlength')">Máximo 10 carácteres</strong>
+    </p>
+    <p>
+      <strong *ngIf="nameField.hasError('pattern')">Ingrese un nombre válido</strong>
     </p>
   </div>
   <!--- #*name* -->
@@ -32,10 +35,10 @@
     </p>
     <div class="messages" [class.active]="isEmailFieldInvalid">
       <p>
-        <strong *ngIf="emailField.touched && emailField.hasError('required')">Este campo es requerido.</strong>
+        <strong *ngIf="emailField.hasError('required')">Este campo es requerido.</strong>
       </p>
       <p>
-        <strong *ngIf="emailField.touched && emailField.hasError('email')">Ingrese un correo válido</strong>
+        <strong *ngIf="emailField.hasError('email')">Ingrese un correo válido</strong>
       </p>
     </div>
   </div>
@@ -45,14 +48,14 @@
   <p>
     Teléfono: {{phoneField.value}}
     <input
-        [class.is-valid]="phoneField.touched && phoneField.valid"
-        [class.is-invalid]="phoneField.touched && phoneField.invalid"
+        [class.is-valid]="phoneField.valid"
+        [class.is-invalid]="phoneField.invalid"
         type="tel"
         formControlName="phone"/>
   </p>
-  <div class="messages" [class.active]="phoneField.touched && phoneField.invalid">
+  <div class="messages" [class.active]="phoneField.invalid">
     <p>
-      <strong *ngIf="phoneField.touched && phoneField.hasError('required')">Este campo es requerido.</strong>
+      <strong *ngIf="phoneField.hasError('required')">Este campo es requerido.</strong>
     </p>
   </div>
   <!--- *#telefono* -->
@@ -64,19 +67,30 @@
   </p>
   <!--- *#color* -->
 
-  <!--- *fecha* -->
+  <!--- *eddd* -->
+  <p>
+    Edad: {{ageField.value}}
+    <input type="number" formControlName="age"/>
+  </p>
+  <div class="messages" [class.active]="ageField.invalid">
+    <p>
+      <strong *ngIf="ageField.hasError('required')">Este campo es requerido.</strong>
+    </p>
+    <p>
+      <strong *ngIf="ageField.hasError('min')">Debe ser mayor de edad.</strong>
+    </p>
+    <p>
+      <strong *ngIf="ageField.hasError('max')">Menor de 100 años.</strong>
+    </p>
+  </div>
+  <!--- *#edad* -->
+
+  <!--- *edad* -->
   <p>
     Fecha: {{dateField.value}}
     <input type="date" formControlName="date"/>
   </p>
-  <!--- *#fecha* -->
-
-  <!--- *numero* -->
-  <p>
-    Número: {{ageField.value}}
-    <input type="number" formControlName="age"/>
-  </p>
-  <!--- *#numero* -->
+  <!--- *#edad* -->
 
   <!--- *descripcion* -->
   <p>
@@ -114,6 +128,14 @@
     Agree: {{agreeField.value}}
     <input type="checkbox" formControlName="agree"/>
   </p>
+  <div class="messages" [class.active]="agreeField.invalid">
+    <p>
+      <strong *ngIf="agreeField.hasError('required')">Este campo es requerido.</strong>
+    </p>
+    <p>
+      <strong *ngIf="agreeField.hasError('requiredtrue')">Seleccione el campo</strong>
+    </p>
+  </div>
   <!--- *#agree* -->
 
   <!--- *genero* -->

@@ -131,16 +131,16 @@ export class BasicFormComponent implements OnInit {
   private buidForm(){
     /* Ejemplo de uso de FormBuilder */
     this.form = this.formBuilder.group({
-      name:        ['',[ Validators.required, Validators.maxLength(10) ]],
+      name:        ['',[ Validators.required, Validators.maxLength(10), Validators.pattern(/^[a-zA-z ]+$/) ]],
       email:       ['', [ Validators.required, Validators.email ]],
       phone:       ['', Validators.required],
       color:       ['#000000'],
       date:        [''],
-      age:         ['18'],
+      age:         ['18', [ Validators.required, Validators.min(18), Validators.max(100) ]],
       description: [''],
       category:    ['null'],
       tag:         ['null'],
-      agree:       [false],
+      agree:       [false, [ Validators.requiredTrue ]],
       gender:      [''],
       zone:        ['']
     });
