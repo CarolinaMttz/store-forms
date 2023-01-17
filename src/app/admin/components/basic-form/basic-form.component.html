@@ -1,125 +1,151 @@
-<p>
-  Name: {{ nameField.valid }}
-  <input
-      [class.is-valid]="isNameFieldValid"
-      [class.is-invalid]="isNameFieldInvalid"
-      type="text"
-      [formControl]="nameField"/>
-  <!--<code><pre>{{nameField | json }}</pre></code>-->
-  <button [disabled]="nameField.invalid" (click)="getNameValue()">getValue</button>
-</p>
+<form [formGroup]="form" (ngSubmit)="save()">
 
-<div class="messages" [class.active]="isNameFieldInvalid">
+  <!--- *name* -->
   <p>
-    <strong *ngIf="nameField.touched && nameField.hasError('required')">Este campo es requerido.</strong>
-  </p>
-  <p>
-    <strong *ngIf="nameField.touched && nameField.hasError('maxlength')">Máximo 10 carácteres</strong>
-  </p>
-</div>
-
-
-
-<div>
-  <p>
-    Email: {{emailField.valid}}
+    Name: {{ nameField.valid }}
     <input
-    [class.is-valid]="isEmailFieldValid"
-    [class.is-invalid]="isEmailFieldInvalid"
-    type="email" [formControl]="emailField"/>
+        [class.is-valid]="isNameFieldValid"
+        [class.is-invalid]="isNameFieldInvalid"
+        type="text"
+        formControlName="name"/>
+    <!--<code><pre>{{nameField | json }}</pre></code>-->
+    <button [disabled]="nameField.invalid" (click)="getNameValue()">getValue</button>
   </p>
-  <div class="messages" [class.active]="isEmailFieldInvalid">
+  <div class="messages" [class.active]="isNameFieldInvalid">
     <p>
-      <strong *ngIf="emailField.touched && emailField.hasError('required')">Este campo es requerido.</strong>
+      <strong *ngIf="nameField.touched && nameField.hasError('required')">Este campo es requerido.</strong>
     </p>
     <p>
-      <strong *ngIf="emailField.touched && emailField.hasError('email')">Ingrese un correo válido</strong>
+      <strong *ngIf="nameField.touched && nameField.hasError('maxlength')">Máximo 10 carácteres</strong>
     </p>
   </div>
-</div>
+  <!--- #*name* -->
+
+  <!--- *email* -->
+  <div>
+    <p>
+      Email: {{emailField.valid}}
+      <input
+      [class.is-valid]="isEmailFieldValid"
+      [class.is-invalid]="isEmailFieldInvalid"
+      type="email" formControlName="email"/>
+    </p>
+    <div class="messages" [class.active]="isEmailFieldInvalid">
+      <p>
+        <strong *ngIf="emailField.touched && emailField.hasError('required')">Este campo es requerido.</strong>
+      </p>
+      <p>
+        <strong *ngIf="emailField.touched && emailField.hasError('email')">Ingrese un correo válido</strong>
+      </p>
+    </div>
+  </div>
+  <!--- *#email* -->
+
+  <!--- *telefono* -->
+  <p>
+    Teléfono: {{phoneField.value}}
+    <input type="tel" formControlName="phone"/>
+  </p>
+  <!--- *#telefono* -->
+
+  <!--- *color* -->
+  <p>
+    Color: {{colorField.value}}
+    <input type="color" formControlName="color"/>
+  </p>
+  <!--- *#color* -->
+
+  <!--- *fecha* -->
+  <p>
+    Fecha: {{dateField.value}}
+    <input type="date" formControlName="date"/>
+  </p>
+  <!--- *#fecha* -->
+
+  <!--- *numero* -->
+  <p>
+    Número: {{ageField.value}}
+    <input type="number" formControlName="age"/>
+  </p>
+  <!--- *#numero* -->
+
+  <!--- *descripcion* -->
+  <p>
+    Descripción: {{descriptionField.value}} <br>
+    <textarea formControlName="description" name="" id="" cols="30" rows="10"></textarea>
+  </p>
+  <!--- *#descripcion* -->
+
+  <!--- *categoria* -->
+  <p>
+    Categoría: {{categoryField.value}}
+    <select formControlName="category" name="" id="">
+      <option value="null">Selecciona una opción</option>
+      <option value="category-1">Categoría 1</option>
+      <option value="category-2">Categoría 2</option>
+      <option value="category-3">Categoría 3</option>
+    </select>
+  </p>
+  <!--- *#categoria* -->
+
+  <!--- *tags* -->
+  <p>
+    Tags: {{tagField.value}}
+    <select formControlName="tag" name="" id="" multiple>
+      <option value="null">Selecciona una opción</option>
+      <option value="tag-1">Tag 1</option>
+      <option value="tag-2">Tag 2</option>
+      <option value="tag-3">Tag 3</option>
+    </select>
+  </p>
+  <!--- *#tags* -->
+
+  <!--- *agree* -->
+  <p>
+    Agree: {{agreeField.value}}
+    <input type="checkbox" formControlName="agree"/>
+  </p>
+  <!--- *#agree* -->
+
+  <!--- *genero* -->
+  <p>
+    Género: {{genderField.value}}
+    <label for="">
+      <input type="radio" value="masculino" formControlName="gender" name="genderField"/>
+      Masculino
+    </label>
+    <label for="">
+      <input type="radio" value="femenino" formControlName="gender" name="genderField"/>
+      Femenino
+    </label>
+    <label for="">
+      <input type="radio" value="otro" formControlName="gender" name="genderField"/>
+      Otro
+    </label>
+  </p>
+  <!--- *#genero* -->
+
+  <!--- *zona* -->
+  <p>
+    Zona: {{zoneField.value}}
+    <label for="">
+      <input type="radio" value="zona-1" formControlName="zone" name="zoneField"/>
+      Zona A
+    </label>
+    <label for="">
+      <input type="radio" value="zona-2" formControlName="zone" name="zoneField"/>
+      Zona B
+    </label>
+    <label for="">
+      <input type="radio" value="zona-3" formControlName="zone" name="zoneField"/>
+      Zona C
+    </label>
+  </p>
+  <!--- *#zona* -->
+
+  <!-- btn -->
+  <button class="class-btn" type="submit">Enviar</button>
+  <!-- #btn -->
 
 
-
-<p>
-  Teléfono: {{phoneField.value}}
-  <input type="tel" [formControl]="phoneField"/>
-</p>
-
-<p>
-  Color: {{colorField.value}}
-  <input type="color" [formControl]="colorField"/>
-</p>
-
-<p>
-  Fecha: {{dateField.value}}
-  <input type="date" [formControl]="dateField"/>
-</p>
-
-<p>
-  Número: {{ageField.value}}
-  <input type="number" [formControl]="ageField"/>
-</p>
-
-<p>
-  Descripción: {{descriptionField.value}} <br>
-  <textarea [formControl]="descriptionField" name="" id="" cols="30" rows="10"></textarea>
-</p>
-
-<p>
-  Categoría: {{categoryField.value}}
-  <select [formControl]="categoryField" name="" id="">
-    <option value="null">Selecciona una opción</option>
-    <option value="category-1">Categoría 1</option>
-    <option value="category-2">Categoría 2</option>
-    <option value="category-3">Categoría 3</option>
-  </select>
-</p>
-
-<p>
-  Tags: {{tagField.value}}
-  <select [formControl]="tagField" name="" id="" multiple>
-    <option value="null">Selecciona una opción</option>
-    <option value="tag-1">Tag 1</option>
-    <option value="tag-2">Tag 2</option>
-    <option value="tag-3">Tag 3</option>
-  </select>
-</p>
-
-<p>
-  Agree: {{agreeField.value}}
-  <input type="checkbox" [formControl]="agreeField"/>
-</p>
-
-<p>
-  Género: {{genderField.value}}
-  <label for="">
-    <input type="radio" value="masculino" [formControl]="genderField" name="genderField"/>
-    Masculino
-  </label>
-  <label for="">
-    <input type="radio" value="femenino" [formControl]="genderField" name="genderField"/>
-    Femenino
-  </label>
-  <label for="">
-    <input type="radio" value="otro" [formControl]="genderField" name="genderField"/>
-    Otro
-  </label>
-</p>
-
-
-<p>
-  Zona: {{zoneField.value}}
-  <label for="">
-    <input type="radio" value="zona-1" [formControl]="zoneField" name="zoneField"/>
-    Zona A
-  </label>
-  <label for="">
-    <input type="radio" value="zona-2" [formControl]="zoneField" name="zoneField"/>
-    Zona B
-  </label>
-  <label for="">
-    <input type="radio" value="zona-3" [formControl]="zoneField" name="zoneField"/>
-    Zona C
-  </label>
-</p>
-
+</form>
