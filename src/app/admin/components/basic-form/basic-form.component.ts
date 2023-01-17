@@ -10,7 +10,7 @@ import { FormControl, Validators } from '@angular/forms';
 export class BasicFormComponent implements OnInit {
 
   nameField  = new FormControl('', [ Validators.required, Validators.maxLength(10) ]);
-  emailField = new FormControl('');
+  emailField = new FormControl('', [ Validators.required, Validators.email ]);
   phoneField = new FormControl('');
   colorField = new FormControl('#000000');
   dateField  = new FormControl('');
@@ -36,6 +36,22 @@ export class BasicFormComponent implements OnInit {
 
   getNameValue(){
       console.log(this.nameField.value);
+  }
+
+  get isNameFieldValid(){
+    return this.nameField.touched && this.nameField.valid;
+  }
+
+  get isNameFieldInvalid(){
+    return this.nameField.touched && this.nameField.invalid;
+  }
+
+  get isEmailFieldValid(){
+    return this.emailField.touched && this.emailField.valid;
+  }
+
+  get isEmailFieldInvalid(){
+    return this.emailField.touched && this.emailField.invalid;
   }
 
 }

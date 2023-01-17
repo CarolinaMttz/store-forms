@@ -1,20 +1,44 @@
 <p>
-  Name: {{nameField.value}} {{ nameField.valid }}
-  <input type="text" [formControl]="nameField"/>
+  Name: {{ nameField.valid }}
+  <input
+      [class.is-valid]="isNameFieldValid"
+      [class.is-invalid]="isNameFieldInvalid"
+      type="text"
+      [formControl]="nameField"/>
   <!--<code><pre>{{nameField | json }}</pre></code>-->
   <button [disabled]="nameField.invalid" (click)="getNameValue()">getValue</button>
 </p>
-<p>
-  <strong *ngIf="nameField.touched && nameField.hasError('required')">Este campo es requerido.</strong>
-</p>
-<p>
-  <strong *ngIf="nameField.touched && nameField.hasError('maxlength')">Máximo 10 carácteres</strong>
-</p>
 
-<p>
-  Email: {{emailField.value}}
-  <input type="email" [formControl]="emailField"/>
-</p>
+<div class="messages" [class.active]="isNameFieldInvalid">
+  <p>
+    <strong *ngIf="nameField.touched && nameField.hasError('required')">Este campo es requerido.</strong>
+  </p>
+  <p>
+    <strong *ngIf="nameField.touched && nameField.hasError('maxlength')">Máximo 10 carácteres</strong>
+  </p>
+</div>
+
+
+
+<div>
+  <p>
+    Email: {{emailField.valid}}
+    <input
+    [class.is-valid]="isEmailFieldValid"
+    [class.is-invalid]="isEmailFieldInvalid"
+    type="email" [formControl]="emailField"/>
+  </p>
+  <div class="messages" [class.active]="isEmailFieldInvalid">
+    <p>
+      <strong *ngIf="emailField.touched && emailField.hasError('required')">Este campo es requerido.</strong>
+    </p>
+    <p>
+      <strong *ngIf="emailField.touched && emailField.hasError('email')">Ingrese un correo válido</strong>
+    </p>
+  </div>
+</div>
+
+
 
 <p>
   Teléfono: {{phoneField.value}}
