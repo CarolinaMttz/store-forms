@@ -15,20 +15,3 @@ input{
     opacity: 1;
   }
 }
-
-
-.class-btn {
-  transition-duration: 0.4s;
-  width: 250px;
-  background-color: #05f;
-  color: white;
-  margin-top: 4px;
-  border-color: blue;
-}
-
-.class-btn:hover {
-  background-color: #4CAF50; /* Green */
-  color: white;
-  border-color: #00ff21;
-}
-

@@ -44,8 +44,17 @@
   <!--- *telefono* -->
   <p>
     Teléfono: {{phoneField.value}}
-    <input type="tel" formControlName="phone"/>
+    <input
+        [class.is-valid]="phoneField.touched && phoneField.valid"
+        [class.is-invalid]="phoneField.touched && phoneField.invalid"
+        type="tel"
+        formControlName="phone"/>
   </p>
+  <div class="messages" [class.active]="phoneField.touched && phoneField.invalid">
+    <p>
+      <strong *ngIf="phoneField.touched && phoneField.hasError('required')">Este campo es requerido.</strong>
+    </p>
+  </div>
   <!--- *#telefono* -->
 
   <!--- *color* -->
@@ -144,8 +153,7 @@
   <!--- *#zona* -->
 
   <!-- btn -->
-  <button class="class-btn" type="submit">Enviar</button>
+  <button   type="submit">Enviar</button>
   <!-- #btn -->
-
 
 </form>

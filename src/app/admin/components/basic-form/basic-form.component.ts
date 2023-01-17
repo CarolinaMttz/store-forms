@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 
 @Component({
@@ -9,21 +9,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 })
 export class BasicFormComponent implements OnInit {
    /* Ejemplo de uso de FormGroup */
-  form = new FormGroup({
-    name:        new FormControl('', [ Validators.required, Validators.maxLength(10) ]),
-    email:       new FormControl('', [ Validators.required, Validators.email ]),
-    phone:       new FormControl(''),
-    color:       new FormControl('#000000'),
-    date:        new FormControl(''),
-    age:         new FormControl('18'),
-    description: new FormControl(''),
-    category:    new FormControl('null'),
-    tag:         new FormControl('null'),
-    agree:       new FormControl(false),
-    gender:      new FormControl(''),
-    zone:        new FormControl('')
-  });
-
+  form: FormGroup
   /* Ejemplo de uso de FormControl */
   /*
   nameField  = new FormControl('', [ Validators.required, Validators.maxLength(10) ]);
@@ -42,13 +28,24 @@ export class BasicFormComponent implements OnInit {
   zoneField = new FormControl('');
   */
 
-  constructor() { }
+  constructor(
+    private  formBuilder: FormBuilder
+  ) {
+    this.buidForm();
+  }
 
   ngOnInit(): void {
     //valueChanges es un Observable muestra los cambios que se estan dando en esos momentos
+    //escuchar  un solo campo
     this.nameField.valueChanges
     .subscribe( value => {
-      console.log(value);
+      console.log("nameField: ",value);
+    });
+
+    //FormBuilder tambien tiene la ventaja de escuchar los cambios de todos los campos
+    this.form.valueChanges
+    .subscribe( value => {
+      console.log("form: ",value);
     });
   }
 
@@ -124,7 +121,30 @@ export class BasicFormComponent implements OnInit {
   }
 
   save(){
-    console.log(this.form.value);
+    if( this.form.valid ){
+      console.log(this.form.value);
+    }else{
+      this.form.markAllAsTouched();
+    }
+  }
+
+  private buidForm(){
+    /* Ejemplo de uso de FormBuilder */
+    this.form = this.formBuilder.group({
+      name:        ['',[ Validators.required, Validators.maxLength(10) ]],
+      email:       ['', [ Validators.required, Validators.email ]],
+      phone:       ['', Validators.required],
+      color:       ['#000000'],
+      date:        [''],
+      age:         ['18'],
+      description: [''],
+      category:    ['null'],
+      tag:         ['null'],
+      agree:       [false],
+      gender:      [''],
+      zone:        ['']
+    });
+
   }
 
 }
