@@ -34,3 +34,23 @@
   Descripción: {{descriptionField.value}} <br>
   <textarea [formControl]="descriptionField" name="" id="" cols="30" rows="10"></textarea>
 </p>
+
+<p>
+  Categoría: {{categoryField.value}}
+  <select [formControl]="categoryField" name="" id="">
+    <option value="null">Selecciona una opción</option>
+    <option value="category-1">Categoría 1</option>
+    <option value="category-2">Categoría 2</option>
+    <option value="category-3">Categoría 3</option>
+  </select>
+</p>
+
+<p>
+  Tags: {{tagField.value}}
+  <select [formControl]="tagField" name="" id="" multiple>
+    <option value="null">Selecciona una opción</option>
+    <option value="tag-1">Tag 1</option>
+    <option value="tag-2">Tag 2</option>
+    <option value="tag-3">Tag 3</option>
+  </select>
+</p>

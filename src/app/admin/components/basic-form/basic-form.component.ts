@@ -16,6 +16,8 @@ export class BasicFormComponent implements OnInit {
   dateField  = new FormControl('');
   ageField   = new FormControl('18');
   descriptionField   = new FormControl('');
+  categoryField   = new FormControl('null');
+  tagField   = new FormControl('null');
 
   constructor() { }
 
