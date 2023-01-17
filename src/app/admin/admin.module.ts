@@ -6,7 +6,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 
 import { MaterialModule } from './../material/material.module';
 import { NavComponent } from './components/nav/nav.component';
-import { BasicFormComponent } from './components/basic-forms/basic-form.component';
+import { BasicFormComponent } from './components/basic-form/basic-form.component';
 
 
 @NgModule({

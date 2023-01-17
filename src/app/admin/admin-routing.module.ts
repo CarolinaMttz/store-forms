@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { NavComponent } from './components/nav/nav.component';
-import { BasicFormComponent } from './components/basic-forms/basic-form.component';
+import { BasicFormComponent } from './components/basic-form/basic-form.component';
 
 
 const routes: Routes = [
