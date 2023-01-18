@@ -16,7 +16,15 @@ export class CategoryFormComponent implements OnInit {
 
   form: FormGroup;
   //categoryId: string;
-  @Input() category: Category;
+  @Input()
+  set category(data: Category){
+      if(data){
+        this.isNew = false;
+        this.form.patchValue(data);
+      }
+  }
+
+  isNew = true;
   @Output() create = new EventEmitter();
   @Output() update = new EventEmitter();
 
@@ -56,12 +64,12 @@ export class CategoryFormComponent implements OnInit {
 
   save(){
     if( this.form.valid ){
-      if( this.category){
+      if(this.isNew){
         //this.updateCategory();
-        this.update.emit(this.form.value);
+        this.create.emit(this.form.value);
       }else{
         //this.createCategory();
-        this.create.emit(this.form.value);
+        this.update.emit(this.form.value);
       }
     }else{
       this.form.markAllAsTouched();
@@ -78,8 +86,8 @@ export class CategoryFormComponent implements OnInit {
 
   uploadFile(event) {
     const image = event.target.files[0];
-    //const name = 'category.png';
-    const name = image.name;
+    const name = 'category.png';
+    //const name = image.name;
     const ref = this.storage.ref(name);
     const task = this.storage.upload(name, image);
 
