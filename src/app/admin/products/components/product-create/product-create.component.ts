@@ -65,16 +65,32 @@ export class ProductCreateComponent implements OnInit {
 
   private buildForm() {
     this.form = this.formBuilder.group({
-      id: ['', [Validators.required]],
-      title: ['', [Validators.required]],
+      title: ['', [Validators.required, Validators.minLength(5)]],
       price: ['', [Validators.required, MyValidators.isPriceValid]],
-      image: [''],
-      description: ['', [Validators.required]],
+      images: ['', Validators.required],
+      category_id: ['', Validators.required],
+      description: ['', [Validators.required, Validators.minLength(10)]],
     });
+  }
+
+  get titleField() {
+    return this.form.get('title');
   }
 
   get priceField() {
     return this.form.get('price');
+  }
+
+  get imageField() {
+    return this.form.get('images');
+  }
+
+  get descriptionField() {
+    return this.form.get('description');
+  }
+
+  get category_idField() {
+    return this.form.get('category_id');
   }
 
 }
