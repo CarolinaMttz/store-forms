@@ -45,6 +45,25 @@
           </mat-form-field>
         </div>
       </div>
+
+      <div class="row">
+        <div class="col-xs">
+          <mat-radio-group formControlName="type" aria-label="Selecciona una opción">
+              <mat-radio-button value="company">Compañia</mat-radio-button>
+              <mat-radio-button value="costumer">Cliente</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs">
+          <mat-form-field>
+            <mat-label>Nombre compañia:</mat-label>
+            <input placeholder="company" formControlName="companyName" matInput type="text">
+          </mat-form-field>
+        </div>
+      </div>
+
     </mat-card-content>
     <mat-card-actions>
       <button [disabled]="form.invalid" mat-raised-button type="submit">Registro</button>
