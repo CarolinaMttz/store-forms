@@ -40,7 +40,21 @@ export class RegisterComponent implements OnInit {
     this.form = this.formBuilder.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(12), MyValidators.validatePassword]],
+      confirmPassword: ['', [Validators.required]]
+    },{
+      validators: MyValidators.matchPassword
     });
   }
 
+  get emailField(){
+    return this.form.get('email');
+  }
+
+  get passwordField(){
+    return this.form.get('password');
+  }
+
+  get confirmPasswordField(){
+    return this.form.get('confirmPassword');
+  }
 }
