@@ -15,3 +15,14 @@ input{
     opacity: 1;
   }
 }
+
+form {
+  padding: 10px;
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+mat-card{
+  padding: 5px;
+}

@@ -28,6 +28,9 @@ export class BasicFormComponent implements OnInit {
   zoneField = new FormControl('');
   */
 
+  tagsList       = ['Tag 1','Tag 1','Tag 1'];
+  categoriesList = ['Categoría 1', 'Categoría 3', 'Categoría 3'];
+
   constructor(
     private  formBuilder: FormBuilder
   ) {
@@ -147,8 +150,8 @@ export class BasicFormComponent implements OnInit {
       date:        [''],
       age:         ['18', [ Validators.required, Validators.min(18), Validators.max(100) ]],
       description: [''],
-      category:    ['null'],
-      tag:         ['null'],
+      category:    [''],
+      tag:         [''],
       agree:       [false, [ Validators.requiredTrue ]],
       gender:      [''],
       zone:        ['']

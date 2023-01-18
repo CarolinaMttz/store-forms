@@ -1,205 +1,207 @@
-<form [formGroup]="form" (ngSubmit)="save()">
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Mi formulario</mat-card-title>
+  </mat-card-header>
+  <br>
+  <form [formGroup]="form" (ngSubmit)="save()" class="example-form">
 
-  <!--- *fullName* -->
-  <div formGroupName="fullName">
-    <!--- *name --->
-    <p>
-      Name: {{ nameField.valid }}
-      <input
-          [class.is-valid]="isNameFieldValid"
-          [class.is-invalid]="isNameFieldInvalid"
-          type="text"
-          formControlName="name"/>
-      <!--<code><pre>{{nameField | json }}</pre></code>-->
-      <button [disabled]="nameField.invalid" (click)="getNameValue()">getValue</button>
-    </p>
-    <div class="messages" [class.active]="isNameFieldInvalid">
+    <!--- *fullName* -->
+    <div formGroupName="fullName">
+      <!--- *name --->
       <p>
-        <strong *ngIf="nameField.hasError('required')">Este campo es requerido.</strong>
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre:</mat-label>
+          <input matInput type="text" formControlName="name">
+          <mat-hint align="end">{{nameField.value.length}} / 10</mat-hint>
+          <mat-icon matSuffix *ngIf="isNameFieldValid">done</mat-icon>
+          <mat-icon matSuffix *ngIf="isNameFieldInvalid">close</mat-icon>
+          <mat-error *ngIf="nameField.hasError('required')">Este campo es requerido.</mat-error>
+          <mat-error *ngIf="nameField.hasError('maxlength')">Máximo 10 carácteres.</mat-error>
+          <mat-error *ngIf="nameField.hasError('pattern')">Ingrese un nombre válido.</mat-error>
+        </mat-form-field>
       </p>
+      <!--- #name* --->
+      <!--- *lastName* --->
       <p>
-        <strong *ngIf="nameField.hasError('maxlength')">Máximo 10 carácteres</strong>
+        <mat-form-field appearance="outline">
+          <mat-label>Apellido:</mat-label>
+          <input matInput type="text" formControlName="lastName">
+          <mat-icon matSuffix *ngIf="lastNameField.valid">done</mat-icon>
+          <mat-icon matSuffix *ngIf="lastNameField.invalid">close</mat-icon>
+          <mat-error *ngIf="lastNameField.hasError('required')">Este campo es requerido.</mat-error>
+          <mat-error *ngIf="lastNameField.hasError('maxlength')">Máximo 10 carácteres.</mat-error>
+          <mat-error *ngIf="lastNameField.hasError('pattern')">Ingrese un nombre válido.</mat-error>
+        </mat-form-field>
       </p>
-      <p>
-        <strong *ngIf="nameField.hasError('pattern')">Ingrese un nombre válido</strong>
-      </p>
+      <!--- #lastName* --->
+
     </div>
-    <!--- #name* --->
-    <!--- *lastName* --->
-    <p>
-      Apellido: {{ lastNameField.valid }}
-      <input
-          type="text"
-          formControlName="lastName"/>
-    </p>
-    <div class="messages" [class.active]="lastNameField.invalid">
+    <!--- #*fullName* -->
+
+    <!--- *email* -->
       <p>
-        <strong *ngIf="lastNameField.hasError('required')">Este campo es requerido.</strong>
+        <mat-form-field appearance="outline">
+          <mat-label>Email:</mat-label>
+          <input matInput type="text" formControlName="email">
+          <mat-icon matSuffix *ngIf="isEmailFieldValid">done</mat-icon>
+          <mat-icon matSuffix *ngIf="isEmailFieldInvalid">close</mat-icon>
+          <mat-error *ngIf="emailField.hasError('required')">Este campo es requerido.</mat-error>
+          <mat-error *ngIf="emailField.hasError('email')">Ingrese un correo válido.</mat-error>
+        </mat-form-field>
+      </p>
+    <!--- *#email* -->
+
+    <!--- *telefono* -->
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Teléfono:</mat-label>
+        <input matInput type="tel" formControlName="phone">
+        <mat-icon matSuffix *ngIf="phoneField.valid">done</mat-icon>
+        <mat-icon matSuffix *ngIf="phoneField.invalid">close</mat-icon>
+        <mat-error *ngIf="phoneField.hasError('required')">Este campo es requerido.</mat-error>
+      </mat-form-field>
+    </p>
+    <!--- *#telefono* -->
+
+    <!--- *color* -->
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Color:</mat-label>
+        <input matInput type="color" formControlName="color">
+      </mat-form-field>
+    </p>
+    <!--- *#color* -->
+
+    <!--- *eddd* -->
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Edad:</mat-label>
+        <input matInput type="number" formControlName="age">
+        <mat-icon matSuffix *ngIf="ageField.valid">done</mat-icon>
+        <mat-icon matSuffix *ngIf="ageField.invalid">close</mat-icon>
+        <mat-error *ngIf="ageField.hasError('required')">Este campo es requerido.</mat-error>
+        <mat-error *ngIf="ageField.hasError('min')">Debe ser mayor de edad.</mat-error>
+        <mat-error *ngIf="ageField.hasError('max')">Menor de 100 años.</mat-error>
+      </mat-form-field>
+    </p>
+    <!--- *#edad* -->
+
+    <!--- *fecha* -->
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Fecha</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </p>
+    <!--- *#fecha* -->
+
+    <!--- *descripcion* -->
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+    </p>
+    <!--- *#descripcion* -->
+
+    <!--- *categoria* -->
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Categoría</mat-label>
+        <mat-select formControlName="category">
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let state of categoriesList" [value]="state">{{state}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </p>
+    <!--- *#categoria* -->
+
+    <!--- *tags* -->
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Tags</mat-label>
+        <mat-select formControlName="tag" multiple>
+          <mat-option *ngFor="let topping of tagsList" [value]="topping">{{topping}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </p>
+    <!--- *#tags* -->
+
+    <!--- *agree* -->
+    <section class="example-section">
+      <mat-checkbox class="example-margin" formControlName="agree" >Agree</mat-checkbox>
+    </section>
+    <!--<p>
+      Agree: {{agreeField.value}}
+      <input type="checkbox" formControlName="agree"/>
+    </p>
+    <div class="messages" [class.active]="agreeField.invalid">
+      <p>
+        <strong *ngIf="agreeField.hasError('required')">Este campo es requerido.</strong>
       </p>
       <p>
-        <strong *ngIf="lastNameField.hasError('maxlength')">Máximo 10 carácteres</strong>
+        <strong *ngIf="agreeField.hasError('requiredtrue')">Seleccione el campo</strong>
       </p>
-      <p>
-        <strong *ngIf="lastNameField.hasError('pattern')">Ingrese un apellido válido</strong>
-      </p>
-    </div>
-    <!--- #lastName* --->
+    </div>-->
+    <!--- *#agree* -->
 
-  </div>
-  <!--- #*fullName* -->
+    <!--- *genero* -->
+    <section class="example-section" >
+      <h4>Género:</h4>
+      <p><mat-checkbox formControlName="gender">Masculino</mat-checkbox></p>
+      <p><mat-checkbox formControlName="gender">Femenino</mat-checkbox></p>
+      <p><mat-checkbox formControlName="gender">Otro</mat-checkbox></p>
+    </section>
+    <!--<p>
+      Género: {{genderField.value}}
+      <label for="">
+        <input type="radio" value="masculino" formControlName="gender" name="genderField"/>
+        Masculino
+      </label>
+      <label for="">
+        <input type="radio" value="femenino" formControlName="gender" name="genderField"/>
+        Femenino
+      </label>
+      <label for="">
+        <input type="radio" value="otro" formControlName="gender" name="genderField"/>
+        Otro
+      </label>
+    </p>-->
+    <!--- *#genero* -->
 
-  <!--- *email* -->
-  <div>
-    <p>
-      Email: {{emailField.valid}}
-      <input
-      [class.is-valid]="isEmailFieldValid"
-      [class.is-invalid]="isEmailFieldInvalid"
-      type="email" formControlName="email"/>
-    </p>
-    <div class="messages" [class.active]="isEmailFieldInvalid">
-      <p>
-        <strong *ngIf="emailField.hasError('required')">Este campo es requerido.</strong>
-      </p>
-      <p>
-        <strong *ngIf="emailField.hasError('email')">Ingrese un correo válido</strong>
-      </p>
-    </div>
-  </div>
-  <!--- *#email* -->
+    <!--- *zona* -->
+    <section class="example-section" >
+      <h4>Zona:</h4>
+      <p><mat-checkbox  formControlName="zone">Zona A</mat-checkbox></p>
+      <p><mat-checkbox  formControlName="zone">Zona B</mat-checkbox></p>
+      <p><mat-checkbox  formControlName="zone">Zona C</mat-checkbox></p>
+    </section>
 
-  <!--- *telefono* -->
-  <p>
-    Teléfono: {{phoneField.value}}
-    <input
-        [class.is-valid]="phoneField.valid"
-        [class.is-invalid]="phoneField.invalid"
-        type="tel"
-        formControlName="phone"/>
-  </p>
-  <div class="messages" [class.active]="phoneField.invalid">
-    <p>
-      <strong *ngIf="phoneField.hasError('required')">Este campo es requerido.</strong>
-    </p>
-  </div>
-  <!--- *#telefono* -->
+    <!--<p>
+      Zona: {{zoneField.value}}
+      <label for="">
+        <input type="radio" value="zona-1" formControlName="zone" name="zoneField"/>
+        Zona A
+      </label>
+      <label for="">
+        <input type="radio" value="zona-2" formControlName="zone" name="zoneField"/>
+        Zona B
+      </label>
+      <label for="">
+        <input type="radio" value="zona-3" formControlName="zone" name="zoneField"/>
+        Zona C
+      </label>
+    </p>-->
+    <!--- *#zona* -->
 
-  <!--- *color* -->
-  <p>
-    Color: {{colorField.value}}
-    <input type="color" formControlName="color"/>
-  </p>
-  <!--- *#color* -->
+    <!-- btn -->
+    <button   type="submit" color="primary">Enviar</button>
+    <!-- #btn -->
 
-  <!--- *eddd* -->
-  <p>
-    Edad: {{ageField.value}}
-    <input type="number" formControlName="age"/>
-  </p>
-  <div class="messages" [class.active]="ageField.invalid">
-    <p>
-      <strong *ngIf="ageField.hasError('required')">Este campo es requerido.</strong>
-    </p>
-    <p>
-      <strong *ngIf="ageField.hasError('min')">Debe ser mayor de edad.</strong>
-    </p>
-    <p>
-      <strong *ngIf="ageField.hasError('max')">Menor de 100 años.</strong>
-    </p>
-  </div>
-  <!--- *#edad* -->
+  </form>
 
-  <!--- *edad* -->
-  <p>
-    Fecha: {{dateField.value}}
-    <input type="date" formControlName="date"/>
-  </p>
-  <!--- *#edad* -->
 
-  <!--- *descripcion* -->
-  <p>
-    Descripción: {{descriptionField.value}} <br>
-    <textarea formControlName="description" name="" id="" cols="30" rows="10"></textarea>
-  </p>
-  <!--- *#descripcion* -->
-
-  <!--- *categoria* -->
-  <p>
-    Categoría: {{categoryField.value}}
-    <select formControlName="category" name="" id="">
-      <option value="null">Selecciona una opción</option>
-      <option value="category-1">Categoría 1</option>
-      <option value="category-2">Categoría 2</option>
-      <option value="category-3">Categoría 3</option>
-    </select>
-  </p>
-  <!--- *#categoria* -->
-
-  <!--- *tags* -->
-  <p>
-    Tags: {{tagField.value}}
-    <select formControlName="tag" name="" id="" multiple>
-      <option value="null">Selecciona una opción</option>
-      <option value="tag-1">Tag 1</option>
-      <option value="tag-2">Tag 2</option>
-      <option value="tag-3">Tag 3</option>
-    </select>
-  </p>
-  <!--- *#tags* -->
-
-  <!--- *agree* -->
-  <p>
-    Agree: {{agreeField.value}}
-    <input type="checkbox" formControlName="agree"/>
-  </p>
-  <div class="messages" [class.active]="agreeField.invalid">
-    <p>
-      <strong *ngIf="agreeField.hasError('required')">Este campo es requerido.</strong>
-    </p>
-    <p>
-      <strong *ngIf="agreeField.hasError('requiredtrue')">Seleccione el campo</strong>
-    </p>
-  </div>
-  <!--- *#agree* -->
-
-  <!--- *genero* -->
-  <p>
-    Género: {{genderField.value}}
-    <label for="">
-      <input type="radio" value="masculino" formControlName="gender" name="genderField"/>
-      Masculino
-    </label>
-    <label for="">
-      <input type="radio" value="femenino" formControlName="gender" name="genderField"/>
-      Femenino
-    </label>
-    <label for="">
-      <input type="radio" value="otro" formControlName="gender" name="genderField"/>
-      Otro
-    </label>
-  </p>
-  <!--- *#genero* -->
-
-  <!--- *zona* -->
-  <p>
-    Zona: {{zoneField.value}}
-    <label for="">
-      <input type="radio" value="zona-1" formControlName="zone" name="zoneField"/>
-      Zona A
-    </label>
-    <label for="">
-      <input type="radio" value="zona-2" formControlName="zone" name="zoneField"/>
-      Zona B
-    </label>
-    <label for="">
-      <input type="radio" value="zona-3" formControlName="zone" name="zoneField"/>
-      Zona C
-    </label>
-  </p>
-  <!--- *#zona* -->
-
-  <!-- btn -->
-  <button   type="submit">Enviar</button>
-  <!-- #btn -->
-
-</form>
+</mat-card>
