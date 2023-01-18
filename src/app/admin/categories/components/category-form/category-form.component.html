@@ -1,4 +1,4 @@
-<form [formGroup]="form" >
+<form [formGroup]="form" (ngSubmit)="save()" >
   <mat-card>
     <mat-card-header>
       <mat-card-title>Registro</mat-card-title>
@@ -22,7 +22,7 @@
         <div class="col-xs">
           <mat-form-field>
             <mat-label>Imagen:</mat-label>
-            <input  formControlName="name" matInput type="text">
+            <input  formControlName="image" matInput type="text">
             <div *ngIf="imageField.touched && imageField.invalid">
               <mat-error *ngIf="imageField.hasError('required')">
                 Campo requerido
