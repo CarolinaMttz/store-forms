@@ -1,7 +1,7 @@
 <form [formGroup]="form" (ngSubmit)="save()" >
   <mat-card>
     <mat-card-header>
-      <mat-card-title>Registro</mat-card-title>
+      <mat-card-title>Crear categoría</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="row">
@@ -13,6 +13,12 @@
               <mat-error *ngIf="nameField.hasError('required')">
                 Campo requerido
               </mat-error>
+              <mat-error *ngIf="nameField.hasError('minLength')">
+                Mínimo 4 caráteres
+              </mat-error>
+              <mat-error *ngIf="nameField.hasError('not_available')">
+                Este nombre ya se encuentra registrado
+              </mat-error>
             </div>
           </mat-form-field>
         </div>
@@ -20,7 +26,18 @@
 
       <div class="row">
         <div class="col-xs">
-          <mat-form-field>
+          <img  *ngIf="imageField.value" [src]="imageField.value">
+          <!--<input (change)="uploadFile($event)" type="file">-->
+          <br/>
+          <button type="button" mat-raised-button (click)="fileInput.click()">Subir imagen</button>
+          <input hidden (change)="uploadFile($event)" #fileInput type="file" id="file">
+
+          <div class="messages" *ngIf="imageField.touched && imageField.invalid">
+            <mat-error *ngIf="imageField.hasError('required')">
+              Campo requerido
+            </mat-error>
+          </div>
+          <!--<mat-form-field>
             <mat-label>Imagen:</mat-label>
             <input  formControlName="image" matInput type="text">
             <div *ngIf="imageField.touched && imageField.invalid">
@@ -28,13 +45,13 @@
                 Campo requerido
               </mat-error>
             </div>
-          </mat-form-field>
+          </mat-form-field>-->
         </div>
       </div>
 
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button type="submit">Registro</button>
+      <button mat-raised-button type="submit">Crear</button>
     </mat-card-actions>
   </mat-card>
 

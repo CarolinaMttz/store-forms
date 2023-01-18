@@ -13,13 +13,10 @@ import { Category } from './../../../../core/models/category.model';
 })
 export class CategoriesComponent implements OnInit {
 
-  categories: Category = {
-    _id: '',
-    name: '',
-    typeImg: ''
-  }
+  categories= [];
 
   categorias: Category[] = [];
+  displayedColumns: string[] = ['id', 'name', 'type', 'options'];
 
   constructor(
     private categoriesService: CategoriesService,
@@ -29,7 +26,8 @@ export class CategoriesComponent implements OnInit {
   ngOnInit(): void {
     this.categoriesService.getAllCategories()
     .subscribe( data => {
-      this.categorias = data
+      this.categorias = data;
+      this.categories = data;
     });
 
   }
