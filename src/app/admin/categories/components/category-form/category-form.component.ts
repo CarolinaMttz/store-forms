@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { CategoriesService } from './../../../../core/services/categories.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { finalize } from 'rxjs/operators';
 import { MyValidators } from './../../../../utils/validators';
@@ -15,18 +15,25 @@ export class CategoryFormComponent implements OnInit {
 
   //form: UntypedFormGroup;
   form: FormGroup;
-
+  categoryId: string;
   constructor(
     //private formBuilder: UntypedFormBuilder,
     private formBuilder: FormBuilder,
     private categoriesService: CategoriesService,
     private router: Router,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private activatedRoute: ActivatedRoute
   ) {
     this.buildForm();
   }
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe( (params) => {
+        this.categoryId = params.id
+        if(this.categoryId){
+          this.getCategory();
+        }
+    })
   }
 
   private buildForm() {
@@ -78,6 +85,15 @@ export class CategoryFormComponent implements OnInit {
       })
     )
     .subscribe();
+  }
+
+  private getCategory(){
+    this.categoriesService.getCategory(this.categoryId)
+    .subscribe(data => {
+      //this.router.navigate(['/admin/categories']);
+      console.log(data);
+      this.form.patchValue(data);
+    });
   }
 
 }

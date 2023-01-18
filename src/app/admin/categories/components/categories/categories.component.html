@@ -16,7 +16,7 @@
   <ng-container matColumnDef="options">
     <th mat-header-cell *matHeaderCellDef> Opciones </th>
     <td mat-cell *matCellDef="let categories">
-      <a mat-raised-button [routerLink]="['edit', categories._id]">Editar</a>
+      <a mat-raised-button [routerLink]="['edit', categories.id]">Editar</a>
     </td>
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
