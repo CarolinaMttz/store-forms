@@ -18,6 +18,14 @@ export class ProductEditComponent implements OnInit {
   id: string;
   categories: Category[] = [];
 
+  states = [
+    {name: 'Arizona', abbrev: 'AZ'},
+    {name: 'California', abbrev: 'CA'},
+    {name: 'Colorado', abbrev: 'CO'},
+    {name: 'New York', abbrev: 'NY'},
+    {name: 'Pennsylvania', abbrev: 'PA'},
+  ];
+
   constructor(
     private formBuilder: FormBuilder,
     private productsService: ProductsService,
@@ -33,7 +41,11 @@ export class ProductEditComponent implements OnInit {
       this.id = params.id;
       this.productsService.getProduct(this.id)
       .subscribe(product => {
-        this.form.patchValue(product);
+        //this.form.patchValue(product);
+        this.form.patchValue({
+          ...product,
+          state: this.states[1]
+        });
         console.log(product);
       });
     });
@@ -59,6 +71,7 @@ export class ProductEditComponent implements OnInit {
       images: ['', Validators.required],
       category: ['', Validators.required],
       description: ['', [Validators.required, Validators.minLength(10)]],
+      state: ['', Validators.required],
     });
   }
 
@@ -80,6 +93,10 @@ export class ProductEditComponent implements OnInit {
 
   get category_idField() {
     return this.form.get('category');
+  }
+
+  get stateField() {
+    return this.form.get('state');
   }
 
   private getCategories(){
