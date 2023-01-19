@@ -62,11 +62,16 @@
           </div>
         </div>
       </div>
+      <br/>
 
       <div class="row">
         <div class="col-xs">
           <mat-form-field>
-            <input placeholder="Categoria" formControlName="category_id" matInput type="number">
+            <mat-label>Categoría</mat-label>
+            <mat-select formControlName="category_id">
+                <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
+            </mat-select>
+
             <div class="messages" *ngIf="category_idField.touched && category_idField.invalid">
               <mat-error *ngIf="category_idField.hasError('required')">
                 Campo requerido

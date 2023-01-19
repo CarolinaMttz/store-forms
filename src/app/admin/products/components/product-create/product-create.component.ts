@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-
 import { finalize } from 'rxjs/operators';
-
 import { MyValidators } from './../../../../utils/validators';
 import { ProductsService } from './../../../../core/services/products/products.service';
-
 import { Observable } from 'rxjs';
+import { CategoriesService } from './../../../../core/services/categories.service';
+import { Category } from './../../../../core/models/category.model';
 
 @Component({
   selector: 'app-product-create',
@@ -19,23 +18,27 @@ export class ProductCreateComponent implements OnInit {
 
   form: UntypedFormGroup;
   image$: Observable<any>;
+  categories: Category[] = [];
 
   constructor(
     private formBuilder: UntypedFormBuilder,
     private productsService: ProductsService,
     private router: Router,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private categoriesService: CategoriesService
   ) {
     this.buildForm();
   }
 
   ngOnInit() {
+    this.getCategories();
   }
 
   saveProduct(event: Event) {
     event.preventDefault();
     if (this.form.valid) {
       const product = this.form.value;
+      console.log("product ", product);
       this.productsService.createProduct(product)
       .subscribe((newProduct) => {
         console.log(newProduct);
@@ -56,12 +59,14 @@ export class ProductCreateComponent implements OnInit {
         this.image$ = fileRef.getDownloadURL();
         this.image$.subscribe(url => {
           console.log(url);
-          this.form.get('image').setValue(url);
+          //this.form.get('image').setValue(url);
+          this.imageField.setValue(url);
         });
       })
     )
     .subscribe();
   }
+
 
   private buildForm() {
     this.form = this.formBuilder.group({
@@ -91,6 +96,13 @@ export class ProductCreateComponent implements OnInit {
 
   get category_idField() {
     return this.form.get('category_id');
+  }
+
+  private getCategories(){
+    this.categoriesService.getAllCategories()
+    .subscribe( (data) =>{
+        this.categories = data;
+    });
   }
 
 }

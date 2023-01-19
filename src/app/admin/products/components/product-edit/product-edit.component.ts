@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { MyValidators } from './../../../../utils/validators';
 import { ProductsService } from './../../../../core/services/products/products.service';
+import { CategoriesService } from './../../../../core/services/categories.service';
+import { Category } from './../../../../core/models/category.model';
 
 @Component({
   selector: 'app-product-edit',
@@ -12,14 +14,16 @@ import { ProductsService } from './../../../../core/services/products/products.s
 })
 export class ProductEditComponent implements OnInit {
 
-  form: UntypedFormGroup;
+  form: FormGroup;
   id: string;
+  categories: Category[] = [];
 
   constructor(
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private productsService: ProductsService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private categoriesService: CategoriesService
   ) {
     this.buildForm();
   }
@@ -30,8 +34,10 @@ export class ProductEditComponent implements OnInit {
       this.productsService.getProduct(this.id)
       .subscribe(product => {
         this.form.patchValue(product);
+        console.log(product);
       });
     });
+    this.getCategories();
   }
 
   saveProduct(event: Event) {
@@ -48,16 +54,40 @@ export class ProductEditComponent implements OnInit {
 
   private buildForm() {
     this.form = this.formBuilder.group({
-      id: ['', [Validators.required]],
-      title: ['', [Validators.required]],
+      title: ['', [Validators.required, Validators.minLength(5)]],
       price: ['', [Validators.required, MyValidators.isPriceValid]],
-      image: [''],
-      description: ['', [Validators.required]],
+      images: ['', Validators.required],
+      category: ['', Validators.required],
+      description: ['', [Validators.required, Validators.minLength(10)]],
     });
+  }
+
+  get titleField() {
+    return this.form.get('title');
   }
 
   get priceField() {
     return this.form.get('price');
   }
+
+  get imageField() {
+    return this.form.get('images');
+  }
+
+  get descriptionField() {
+    return this.form.get('description');
+  }
+
+  get category_idField() {
+    return this.form.get('category');
+  }
+
+  private getCategories(){
+    this.categoriesService.getAllCategories()
+    .subscribe( (data) =>{
+        this.categories = data;
+    });
+  }
+
 
 }

@@ -29,11 +29,30 @@
             </mat-form-field>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-xs">
+            <mat-form-field>
+              <mat-label>Categoría</mat-label>
+              <mat-select formControlName="category">
+                <mat-option [value]="category.id" *ngFor="let category of categories">
+                {{ category.name }}
+                </mat-option>
+                </mat-select>
+
+              <div class="messages" *ngIf="category_idField.touched && category_idField.invalid">
+                <mat-error *ngIf="category_idField.hasError('required')">
+                  Campo requerido
+                </mat-error>
+              </div>
+            </mat-form-field>
+          </div>
+        </div>
+
       </mat-card-content>
       <mat-card-actions>
         <button [disabled]="form.invalid" mat-raised-button type="submit">Guardar</button>
       </mat-card-actions>
     </mat-card>
-    
+
   </form>
-  

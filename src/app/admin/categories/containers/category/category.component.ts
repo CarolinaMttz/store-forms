@@ -34,7 +34,7 @@ export class CategoryComponent implements OnInit {
   }
 
   updateCategory(data){
-    this.categoriesService.updateCategory(this.category._id, data)
+    this.categoriesService.updateCategory(this.category.id, data)
     .subscribe(rta => {
       this.router.navigate(['/admin/categories']);
     });
